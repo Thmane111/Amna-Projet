@@ -1,0 +1,35 @@
+          <?php
+                                      use App\Models\groupe;
+                                      use App\Models\Ecole;
+                                    $resultat_comp=0;
+
+                                    ?>
+                                    @if($resultat_count!=0)
+                                @foreach($resultat as $resultats)
+                               <?php
+                               
+                               $recup_ecole=Ecole::all()->where('id',$resultats->ecole_id)->first();
+
+                               ?>
+                                <tr>
+                                   
+                                    <td>{{$resultats->Numero_Candidat}}</td>
+                                    <td class="fw-bold text-secondary">{{$resultats->Prenom." ".$resultats->Nom}}</td>
+                                    <td class="fw-bold text-secondary">{{$resultats->Lieu_Naissance}}</td>
+                                    <td class="fw-bold text-secondary">{{$recup_ecole->Nom_Ecole}}</td>
+                                    <td class="fw-bold text-secondary">{{$resultats->note}}</td>
+                                    <td>@if($resultats->etat==0)
+                                        <span class="badge light badge-danger" style="font-size:15px; ">desactiver</span>
+                                        @elseif($resultats->etat==1)
+                                        <span class="badge light badge-success" style="font-size:15px; ">activer</span>
+                                        @endif
+                                    </td>
+                                   
+                                      
+
+                               
+
+                                </tr>
+
+                                @endforeach
+                                @endif

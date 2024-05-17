@@ -1,0 +1,99 @@
+   <div class="col-lg-12">
+            @if($errors->any())
+            @foreach($errors->All() as $error)
+            <div class="alert alert-icon alert-danger">
+              {{session('errors')}}
+           </div>
+            @endforeach
+            @endif
+            @if(Session::has('error'))
+         <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>{{session::get('error')}}</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+         </div>
+         @endif
+         @if(Session::has('message'))
+         <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>{{session::get('message')}}</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+         </div>
+         @endif
+            <div class="card">
+                <div class="card-header">
+                    <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#exampleModalpopover">Effectuer un acces</button>
+                    <!-- Modal -->
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md">
+                            <thead>
+                                <tr>
+                                    <th style="width:80px;"><strong>#</strong></th>
+                                    <th><strong>Utilisateur</strong></th>
+                                    <th><strong>Nom complete</strong></th>
+                                    <th><strong>Email</strong></th>
+
+                                    <th style="display: none;"><strong>Id</strong></th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                               use App\Models\Acces;
+                               use App\Models\Tache;
+                                     $attribut_comp=0; ?>
+
+                                @foreach($attribut as  $attributs)
+                                <?php
+                                     $mod=acces::all()->where('groupe_id','=',$attributs->groupe_id)
+                                     ->where('parent',"=",0)
+                                     ;
+                                     ?>
+
+                                <tr>
+
+                                    <td>{{$attribut_comp++}}</td>
+                                    <td>
+                                        <div class="avatar-list avatar-list-stacked px-3">
+                                            <img class="avatar rounded-circle sm" src="{{asset('Back/dist/images/avatar2.jpg')}}" alt="">
+
+                                        </div>
+                                   </td>
+                                    <td>{{$attributs->admin ?  $attributs->admin->name:''}}</td>
+                                    <td>{{$attributs->admin ?  $attributs->admin->email:''}}</td>
+                                    <td style="display:none">{{$attributs->admin ?  $attributs->admin->id:''}}</td>
+
+
+                                     <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-success light sharp" data-bs-toggle="dropdown">
+                                                <svg width="20px" height="20px" viewbox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                @foreach($mod as $mods)
+                                                <a href="{{route('permission.permi2',[$mods->module ?  $mods->module->id:'0',$attributs->groupe ?  $attributs->groupe->id:''])}}" class="dropdown-item" name="idM" value="{{$mods->module ?  $mods->module->id:''}}" >
+                                                    {{$mods->module ?  $mods->module->nom_module:''}}
+
+                                                </button>
+
+                                                @endforeach
+                                            </div>
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                                @endforeach
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>

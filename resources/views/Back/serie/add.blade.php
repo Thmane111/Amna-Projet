@@ -1,0 +1,56 @@
+
+
+        <!-- Button trigger modal -->
+
+  <div class="modal fade" id="exampleModalpopover">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+
+
+
+                  <div class="card-header" style="text-align:center;justify-content:center;">
+                       <h4 class="card-title"><strong>Formulaire d'ajout de serie</strong></h4>
+                  </div>
+
+                      <div class="card-body">
+                          <div class="basic-form">
+                              <form action="{{route('serie.store')}}" method="POST">
+                                  @csrf
+                                  <select class="default-select form-control wide mb-3" name="user_id">
+                                    <option value="0"><u>Veuillez choire l'Utilisateur à attribuer</u></option>
+                                    @foreach($niveau as $niveaus)
+                                    <option value="{{$niveaus->id}}">{{$niveaus->niveau}}</option>
+                          @endforeach
+                                </select>
+                                  <div class="mb-3">
+                                      <input type="text" name="serie" class="form-control input-default " placeholder="Nom groupe">
+                                  </div>
+                                  <div class="mb-3">
+                                      <input type="text" name="caption" class="form-control input-default " placeholder="caption">
+                                  </div>
+                                  <div class="mb-3">
+                                  <textarea class="form-control" name="detail"  placeholder="Description"></textarea>
+                                  </div>
+
+
+
+
+
+
+                          </div>
+                      </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </div>
+          </form>
+        </div>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
